@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AudioClipName
-{
-    ENEMY_HIT, ENEMY_KILL, PLAYER_MACHINE_1, PLAYER_MACHINE_2, PLAYER_MACHINE_3, PLAYER_MACHINE_4, PLAYER_WALK, PLAYER_GROUNDPOUND, PLAYER_DASH, PLAYER_JUMP, MINE_COAL,
-    RECOLECT_WATTER, SHOOTSOUND, PLAYER_WALLJUMP, CLICK_MENU, SOUND_LAVA, LAST_NO_USE
-}
-
 public class SoundManager : MonoBehaviour
 {
     [Range(0.0F, 1.0F)]
@@ -54,7 +48,10 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (m_instance == null) { m_instance = this; Initiate(); }
+        if (m_instance == null) {
+            m_instance = this; Initiate(); 
+            DontDestroyOnLoad(this);    
+        }
         else { Destroy(this.gameObject); }
     }
 
