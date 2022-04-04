@@ -41,6 +41,7 @@ public class InstaKillProof : MonoBehaviour
         if (collision.gameObject.tag == "BarrierInstaKill" && facingRigth)
         {
             bar.SetActive(false);
+            //pierdes
         }
     }
 

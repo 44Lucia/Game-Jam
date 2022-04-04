@@ -5,24 +5,41 @@ using UnityEngine.UI;
 
 public class PRUEBA : MonoBehaviour
 {
-
+    private int counter = 1;
     public float fillAmount = 0;
     public float timeThreshold = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    [SerializeField] PRUEBA input;
+    [SerializeField] GameObject image;
+    [SerializeField] GameObject killBar;
+    bool m_isActive = false;
 
     // Update is called once per frame
     void Update()
     {
+
+        if(m_isActive){
+            fillAmounts(0.02f);
+        }
+
+        if (valueFillAmount() >= 1)
+        {
+            Debug.Log("Patata");
+            //image.SetActive(false);
+            if (counter == 1)
+            {
+                m_isActive = false;
+                killBar.SetActive(true);
+                counter--;
+                fillAmount = 0;
+            }
+        }
+
         timeThreshold += Time.deltaTime;
 
         if (timeThreshold > .05)
         {
             timeThreshold = 0;
-            fillAmount -= .03f;
+            fillAmount -= .02f;
         }
 
         if (fillAmount < 0)
@@ -38,5 +55,15 @@ public class PRUEBA : MonoBehaviour
          fillAmount += value; 
     }
 
+    public void Initialize(){
+        GetComponent<Image>().fillAmount = 0;
+        
+        fillAmounts(+.02f);
+        m_isActive = true;
+        counter = 1;
+    }
     public float valueFillAmount() { return fillAmount; }
+    public void SetInactive(){
+        m_isActive = false;
+    }
 }

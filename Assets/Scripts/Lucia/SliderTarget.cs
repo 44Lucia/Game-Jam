@@ -6,22 +6,14 @@ public class SliderTarget : MonoBehaviour
 {
 
     [SerializeField] GameObject bar;
-
     private bool youWin = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (!youWin && Input.GetKey("l"))
         {
-            Debug.Log("cagaste");
+            Debug.Log("pierdes");
             bar.SetActive(false);
+            GameManager.Instance.HandleEvent(false);
         }
     }
 
@@ -29,6 +21,7 @@ public class SliderTarget : MonoBehaviour
     {
         if (collision.gameObject.tag == "Finish" && Input.GetKey("l"))
         {
+            //ganas
             youWin = true;
             bar.SetActive(false);
         }
