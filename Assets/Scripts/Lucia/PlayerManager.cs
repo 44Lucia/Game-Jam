@@ -17,8 +17,13 @@ public class PlayerManager : MonoBehaviour
     string m_moveRightAnimationName       = "moveRight";
     string m_moveTopAnimationName      = "moveTop";
     string m_moveBottomAnimationName     = "moveBottom";
-    string m_idleAnimationName      = "idle";
+    string m_idleBottomAnimationName      = "idleBottom";
+    string m_idleLeftAnimationName = "idleLeft";
+    string m_idleRigthAnimationName = "idleRight";
+    string m_idleTopAnimationName = "idleTop";
     int[] m_animationHash = new int[(int)PLAYER_ANIMATION.LAST_NO_USE];
+
+    PLAYER_ANIMATION m_lastPosition = 0;
 
     Animator m_animator;
     PLAYER_ANIMATION m_animationState;
@@ -53,7 +58,10 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         rb2D.rotation = 0;
-        m_animationHash[(int)PLAYER_ANIMATION.IDLE]                  = Animator.StringToHash(m_idleAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.IDLEBOTTOM]                  = Animator.StringToHash(m_idleBottomAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.IDLERIGTH]                   = Animator.StringToHash(m_idleRigthAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.IDLELEFT]                   = Animator.StringToHash(m_idleLeftAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.IDLETOP] = Animator.StringToHash(m_idleTopAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_LEFT]                 = Animator.StringToHash(m_moveLeftAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_RIGHT]                = Animator.StringToHash(m_moveRightAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_TOP]                 = Animator.StringToHash(m_moveTopAnimationName);
@@ -68,18 +76,22 @@ public class PlayerManager : MonoBehaviour
 
         if(moveX < 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_LEFT);
+            m_lastPosition = PLAYER_ANIMATION.IDLELEFT;
         }
         else if(moveX > 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_RIGHT);
+            m_lastPosition = PLAYER_ANIMATION.IDLERIGTH;
         }
         else if(moveY > 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_TOP);
+            m_lastPosition = PLAYER_ANIMATION.IDLETOP;
         }
         else if(moveY < 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_BOTTOM);
+            m_lastPosition = PLAYER_ANIMATION.IDLEBOTTOM;
         }
         else{
-            ChangeAnimationState(PLAYER_ANIMATION.IDLE);
+            ChangeAnimationState(m_lastPosition);
         }
 
         Vector2 m_direction = new Vector2(moveX, moveY);
