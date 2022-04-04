@@ -34,7 +34,6 @@ public class InstaKillProof : MonoBehaviour
     {
         if (collision.gameObject.tag == "BarrierInstaKill")
         {
-            //slider.transform.position -= new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             facingRigth = false;
             lap++;
             m_direction = -1;

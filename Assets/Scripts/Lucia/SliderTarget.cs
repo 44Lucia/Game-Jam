@@ -21,7 +21,7 @@ public class SliderTarget : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Finish" && Input.GetKeyDown("l"))
+        if (collision.gameObject.tag == "Finish" && Input.GetKey("k"))
         {
             bar.SetActive(false);
         }

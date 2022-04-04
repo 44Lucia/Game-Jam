@@ -92,4 +92,9 @@ public class PlayerManager : MonoBehaviour
         get { return new Vector2(transform.position.x, transform.position.y);}
     }
 
+    public void velocityPlayer(float value) 
+    { 
+        speed += value; 
+    }
+
 }

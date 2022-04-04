@@ -43,4 +43,6 @@ public class HidingSpotInside : MonoBehaviour
         }
     }
 
+
+    public bool isEnemyInside() { return m_isEnemyInside; }
 }
