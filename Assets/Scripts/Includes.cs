@@ -13,3 +13,5 @@ public enum BackGroundClipName{
 }
 
 public enum SCENE { MAIN_MENU, PAUSE_MENU, LEVEL, LAST_NO_USE}
+
+public enum PLAYER_ANIMATION { IDLE, MOVE_LEFT, MOVE_RIGHT, MOVE_TOP, MOVE_BOTTOM, LAST_NO_USE}
