@@ -36,7 +36,6 @@ public class ObstaclesInteract : MonoBehaviour
         if (collision.gameObject.tag == "Player" && Input.GetKey("k"))
         {
             input.fillAmounts(+.02f);
-            Debug.Log("Lo has logrado");
         }
     }
 

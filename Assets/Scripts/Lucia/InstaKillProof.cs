@@ -9,7 +9,7 @@ public class InstaKillProof : MonoBehaviour
     [SerializeField] GameObject target;
     [SerializeField] GameObject slider;
 
-    private bool facingRigth;
+    public bool facingRigth;
     int maxLaps = 1;
     int lap = 0;
     float m_direction = 1;
@@ -32,7 +32,7 @@ public class InstaKillProof : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "BarrierInstaKill")
+        if (collision.gameObject.tag == "BarrierInstaKill" && lap == 0)
         {
             facingRigth = false;
             lap++;
@@ -44,6 +44,10 @@ public class InstaKillProof : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        facingRigth = true;
+    }
 
     private void InitializeEvent() 
     {
