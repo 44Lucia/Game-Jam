@@ -61,13 +61,7 @@ public class Obstacle : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.tag == "Player" && Input.GetKeyUp("k"))
         {
-            m_hasPressedK = false;
-            m_prueba.SetInactive();
-            if (inspectChronometer.IsFinished)
-            {
-                SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
-                inspectChronometer.Run();
-            }
+            FinishEvent();
         }
         if(m_hasPressedK){ return ;}
         if (collision.gameObject.tag == "Player" && Input.GetKey("k"))
@@ -81,10 +75,17 @@ public class Obstacle : MonoBehaviour
                 inspectChronometer.Run();
             }
         }
-
-        
     }
 
+public void FinishEvent(){
+    m_hasPressedK = false;
+        m_prueba.SetInactive();
+        if (inspectChronometer.IsFinished)
+        {
+            SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
+            inspectChronometer.Run();
+        }
+}
 
 
 }

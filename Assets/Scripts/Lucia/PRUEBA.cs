@@ -28,7 +28,11 @@ public class PRUEBA : MonoBehaviour
             if (counter == 1)
             {
                 m_isActive = false;
-                killBar.SetActive(true);
+                if(GameManager.Instance.GetCurrentObstacle().IsEnemyHiding){
+                    killBar.SetActive(true);
+                    Debug.Log("NINO ENCONTRADO");
+                    GameManager.Instance.GetCurrentObstacle().FinishEvent();
+                }
                 counter--;
                 fillAmount = 0;
             }

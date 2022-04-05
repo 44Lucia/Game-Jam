@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
         m_currentObstacle = p_obstacle;
     }
 
+    public Obstacle GetCurrentObstacle(){
+        return m_currentObstacle;
+    }
+
     public void HandleEvent(bool p_hasWon){
         if(!p_hasWon){
             Enemy enemy = m_currentObstacle.FreeHidingSpot();
