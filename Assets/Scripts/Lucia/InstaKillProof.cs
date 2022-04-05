@@ -30,6 +30,9 @@ public class InstaKillProof : MonoBehaviour
         if (lap <= maxLaps)
         {
             slider.transform.position += new Vector3(m_direction * moveSpeed * Time.deltaTime, 0, 0);
+        }else
+        {
+
         }
     }
 
@@ -59,7 +62,7 @@ public class InstaKillProof : MonoBehaviour
         float initialPosition = m_size * Random.Range(-0.5f, 0.5f);
         transform.position = p_position;
         target.transform.position = new Vector3(transform.position.x + initialPosition,transform.position.y, transform.position.z);
-        //slider.transform.position = p_position;
+        slider.transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z);
         
         lap = 0;
         m_direction = 1;
