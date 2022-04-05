@@ -24,6 +24,7 @@ public class SliderTarget : MonoBehaviour
             //ganas
             youWin = true;
             bar.SetActive(false);
+            GameManager.Instance.HandleEvent(true);
         }
     }
 }

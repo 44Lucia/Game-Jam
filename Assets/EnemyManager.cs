@@ -39,4 +39,9 @@ public class EnemyManager : MonoBehaviour
         availableHidingSpots[index].HideEnemy(p_enemy);
     }
 
+    public void KillEnemy(Enemy p_enemy){
+        Debug.Log("Enemy Killed");
+        p_enemy.gameObject.SetActive(false);
+    }
+
 }

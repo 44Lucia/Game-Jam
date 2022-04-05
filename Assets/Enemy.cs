@@ -15,4 +15,7 @@ public class Enemy : MonoBehaviour
     public void HideEnemy(Obstacle p_obstacle){
         transform.position = p_obstacle.HidingPosition;
     }
+
+    
+
 }

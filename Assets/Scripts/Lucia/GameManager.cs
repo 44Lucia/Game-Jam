@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
             Enemy enemy = m_currentObstacle.FreeHidingSpot();
             EnemyManager.Instance.HideEnemy(enemy);
         }
+        else{
+            Enemy enemy = m_currentObstacle.FreeHidingSpot();
+            EnemyManager.Instance.KillEnemy(enemy);
+        }
     }
 
 }

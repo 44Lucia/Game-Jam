@@ -26,6 +26,10 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    public Enemy GetCurrentEnemy(){
+        return m_enemyHiding;
+    }
+
     public bool IsEnemyHiding{ 
         get { return m_isEnemyHiding;}
         set { m_isEnemyHiding = value;}
