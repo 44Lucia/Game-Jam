@@ -13,7 +13,6 @@ struct Menu{
         gameObject = p_gameObject;
         ID = p_menuID;
     }
-
 }
 
 public class MenuManager : MonoBehaviour
@@ -33,6 +32,7 @@ public class MenuManager : MonoBehaviour
     int m_currentMenu;
     bool[] m_isMenuInStack;
     bool m_isMenuActive = true;
+
     private void Awake() {
         if(m_instance == null){m_instance = this; }
         else { Destroy(this.gameObject) ;}

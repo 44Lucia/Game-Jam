@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum AudioClipName
 {
-    PLAYER_WALK, INSPECTION , TASTE ,LAST_NO_USE
+    PLAYER_WALK, INSPECTION , TASTE , HEARTSOUND ,LAST_NO_USE
 }
 
 public class SoundManager : MonoBehaviour
@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] float m_backgroundSoundMenu = 1;
     [Range(0.0F, 1.0F)]
     [SerializeField] float m_taste = 1;
+    [Range(0.0F, 1.0F)]
+    [SerializeField] float m_heartSound = 1;
 
     static SoundManager m_instance;
     [SerializeField] AudioSource m_effects;
@@ -64,12 +66,14 @@ public class SoundManager : MonoBehaviour
         m_audioClips[(int)AudioClipName.PLAYER_WALK] = Resources.Load<AudioClip>("Sound/Walk2SFX");
         m_audioClips[(int)AudioClipName.INSPECTION] = Resources.Load<AudioClip>("Sound/InpectionSFX");
         m_audioClips[(int)AudioClipName.TASTE] = Resources.Load<AudioClip>("Sound/taste");
+        m_audioClips[(int)AudioClipName.HEARTSOUND] = Resources.Load<AudioClip>("Sound/heartSound");
 
         // SAVE ALL THE VOLUMES SET IN THE INSPECTOR TO AN ARRAY
         m_volumeEffects = new float[(int)AudioClipName.LAST_NO_USE];
         m_volumeEffects[(int)AudioClipName.PLAYER_WALK] = m_playerWalk;
         m_volumeEffects[(int)AudioClipName.INSPECTION] = m_inspection;
         m_volumeEffects[(int)AudioClipName.TASTE] = m_taste;
+        m_volumeEffects[(int)AudioClipName.HEARTSOUND] = m_heartSound;
 
         // LOAD ALL THE MUSIC CLIPS
         m_backgroundMusic = new AudioClip[(int)BackGroundClipName.LAST_NO_USE];

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TimerGame : MonoBehaviour
 {
-    private float timeToLose;
+    public float timeToLose;
 
     // Start is called before the first frame update
     void Start()
