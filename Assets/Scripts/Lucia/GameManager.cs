@@ -11,8 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject child3;
     [SerializeField] GameObject child4;
 
+    [SerializeField] GameObject pause;
+
     private float counterChild = 1;
     bool m_canStartInteracting = true;
+    bool pauseTimer = false;
 
     public static GameManager Instance { get { return m_instance;}}
     private void Awake() {
@@ -20,6 +23,15 @@ public class GameManager : MonoBehaviour
         else { Destroy(this.gameObject); }
     }
     Obstacle m_currentObstacle;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseTimer = true;
+            pause.SetActive(true);
+        }
+    }
 
     public void SetCurrentObstacle(Obstacle p_obstacle){
         m_currentObstacle = p_obstacle;
@@ -65,5 +77,18 @@ public class GameManager : MonoBehaviour
         get { return m_canStartInteracting;}
         set { m_canStartInteracting = value;}
     }
+
+    public void reestartGame() 
+    {
+        pauseTimer = false;
+        pause.SetActive(false);
+    }
+
+    public void timerPaused(bool isPaused) 
+    {
+        pauseTimer = isPaused;
+    }
+
+    public bool timerPause() { return pauseTimer; }
 
 }
