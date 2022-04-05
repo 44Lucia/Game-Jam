@@ -23,8 +23,8 @@ namespace Game{
 
         if(m_instance == null) {
             m_instance = this;
-            Initialize();
-            DontDestroyOnLoad(this.gameObject);
+                Initialize();
+                DontDestroyOnLoad(this.gameObject);
         }
         else{
             Destroy(this.gameObject);
@@ -32,7 +32,12 @@ namespace Game{
         
     }
 
-    void Initialize(){
+        private void Start()
+        {
+            
+        }
+
+        void Initialize(){
         m_numberOfTotalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
         Debug.Log(m_numberOfTotalScenes);
     }
@@ -50,7 +55,8 @@ namespace Game{
         UnityEngine.SceneManagement.SceneManager.LoadScene((int)p_scene);
     }
 
-}
+    public BackGroundClipName GetCurrentBackgroudClipName() { return m_currentScene.GetCurrentBackgroudClipName(); }
+    }
 
 }
 

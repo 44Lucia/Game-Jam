@@ -13,6 +13,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] float m_playerWalk = 1;
     [Range(0.0F, 1.0F)]
     [SerializeField] float m_inspection = 1;
+    [Range(0.0F, 1.0F)]
+    [SerializeField] float m_backgroundSound = 1;
+    [Range(0.0F, 1.0F)]
+    [SerializeField] float m_backgroundSoundMenu = 1;
 
     static SoundManager m_instance;
     [SerializeField] AudioSource m_effects;
@@ -31,7 +35,7 @@ public class SoundManager : MonoBehaviour
         if (m_instance == null) {
             m_instance = this;
             Initiate(); 
-            DontDestroyOnLoad(this);    
+            DontDestroyOnLoad(this.gameObject);    
         }
         else { Destroy(this.gameObject); }
     }
@@ -65,9 +69,12 @@ public class SoundManager : MonoBehaviour
 
         // LOAD ALL THE MUSIC CLIPS
         m_backgroundMusic = new AudioClip[(int)BackGroundClipName.LAST_NO_USE];
+        m_backgroundMusic[(int)BackGroundClipName.MUSIC_1] = Resources.Load<AudioClip>("Sound/BackgroundSound");
+        m_backgroundMusic[(int)BackGroundClipName.MUSIC_2] = Resources.Load<AudioClip>("Sound/awesomeness");
         // SAVE ALL THE VOLUMES SET IN THE INSPECTOR TO AN ARRAY
         m_volumeBackground = new float[(int)SCENE.LAST_NO_USE];
-
+        m_volumeBackground[(int)BackGroundClipName.MUSIC_1] = m_backgroundSound;
+        m_volumeBackground[(int)BackGroundClipName.MUSIC_2] = m_backgroundSoundMenu;
     }
 
     public void PlayOnce(AudioClipName p_name)
@@ -81,7 +88,9 @@ public class SoundManager : MonoBehaviour
     {
         if(m_backgroundMusic[(int)p_name] == null) { return ;}
         m_background.volume = m_generalVolumeBackground * m_volumeBackground[(int)p_name];
+        m_background.clip = m_backgroundMusic[(int)p_name];
         m_background.Play();
+        
     }
 
     public float GetAudioClipDuration(AudioClipName p_name)
@@ -96,6 +105,7 @@ public class SoundManager : MonoBehaviour
         else if(p_value > 1){ volumeValue = 1; }
         else { volumeValue = p_value; }
         m_generalVolumeBackground = volumeValue;
+        m_background.volume = m_generalVolumeBackground;
     }
 
     public void SetEffectsVolume(float p_value){
