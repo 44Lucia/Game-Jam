@@ -10,9 +10,17 @@ public class Obstacle : MonoBehaviour
     Enemy m_enemyHiding = null;
     bool m_hasPressedK = false;
 
+    Timer inspectChronometer;
+
     private void Awake() {
         m_renderer = GetComponent<SpriteRenderer>();
         m_prueba = GameObject.FindGameObjectWithTag("PRUEBA").GetComponent<PRUEBA>();
+        inspectChronometer = gameObject.AddComponent<Timer>();
+    }
+
+    private void Start()
+    {
+        inspectChronometer.Duration = SoundManager.Instance.GetAudioClipDuration(AudioClipName.PLAYER_WALK);
     }
 
     public void SortObject(){
@@ -55,6 +63,11 @@ public class Obstacle : MonoBehaviour
         {
             m_hasPressedK = false;
             m_prueba.SetInactive();
+            if (inspectChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
+                inspectChronometer.Run();
+            }
         }
         if(m_hasPressedK){ return ;}
         if (collision.gameObject.tag == "Player" && Input.GetKey("k"))
@@ -62,6 +75,11 @@ public class Obstacle : MonoBehaviour
             GameManager.Instance.SetCurrentObstacle(gameObject.GetComponent<Obstacle>());
             m_prueba.Initialize();
             m_hasPressedK = true;
+            if (inspectChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
+                inspectChronometer.Run();
+            }
         }
 
         

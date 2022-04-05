@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AudioClipName
+{
+    PLAYER_WALK, INSPECTION ,LAST_NO_USE
+}
+
 public class SoundManager : MonoBehaviour
 {
     [Range(0.0F, 1.0F)]
+    [SerializeField] float m_playerWalk = 1;
+    [Range(0.0F, 1.0F)]
+    [SerializeField] float m_inspection = 1;
 
     static SoundManager m_instance;
     [SerializeField] AudioSource m_effects;
@@ -40,15 +48,20 @@ public class SoundManager : MonoBehaviour
     {
 
         m_background.loop = true;
-        m_background.volume = 1;
+        m_background.volume = 0.5f;
         m_effects.loop = false;
         m_effects.volume = 1;
+        
 
         // LOAD THE EFFECT CLIPS
         m_audioClips = new AudioClip[(int)AudioClipName.LAST_NO_USE];
+        m_audioClips[(int)AudioClipName.PLAYER_WALK] = Resources.Load<AudioClip>("Sound/Walk2SFX");
+        m_audioClips[(int)AudioClipName.INSPECTION] = Resources.Load<AudioClip>("Sound/InpectionSFX");
 
         // SAVE ALL THE VOLUMES SET IN THE INSPECTOR TO AN ARRAY
         m_volumeEffects = new float[(int)AudioClipName.LAST_NO_USE];
+        m_volumeEffects[(int)AudioClipName.PLAYER_WALK] = m_playerWalk;
+        m_volumeEffects[(int)AudioClipName.INSPECTION] = m_inspection;
 
         // LOAD ALL THE MUSIC CLIPS
         m_backgroundMusic = new AudioClip[(int)BackGroundClipName.LAST_NO_USE];

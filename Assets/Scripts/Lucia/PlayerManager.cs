@@ -30,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     int m_currentAnimationHash = 0;
     bool m_isBeingScripted = false;
 
+    Timer walkChronometer;
+
     public void ChangeAnimationState(PLAYER_ANIMATION p_animationState)
     {
         int newAnimationHash = m_animationHash[(int)p_animationState];
@@ -52,6 +54,7 @@ public class PlayerManager : MonoBehaviour
         if(m_instance == null){ m_instance = this;}
         else { Destroy(this.gameObject);}
         rb2D = GetComponent<Rigidbody2D>();
+        walkChronometer = gameObject.AddComponent<Timer>();
         m_animator = GetComponent<Animator>();
 
     }
@@ -66,6 +69,8 @@ public class PlayerManager : MonoBehaviour
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_RIGHT]                = Animator.StringToHash(m_moveRightAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_TOP]                 = Animator.StringToHash(m_moveTopAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_BOTTOM]                 = Animator.StringToHash(m_moveBottomAnimationName);
+       
+        walkChronometer.Duration = SoundManager.Instance.GetAudioClipDuration(AudioClipName.PLAYER_WALK);
     }
 
     // Update is called once per frame
@@ -77,18 +82,38 @@ public class PlayerManager : MonoBehaviour
         if(moveX < 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_LEFT);
             m_lastPosition = PLAYER_ANIMATION.IDLELEFT;
+            if (walkChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.PLAYER_WALK);
+                walkChronometer.Run();
+            }
         }
         else if(moveX > 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_RIGHT);
             m_lastPosition = PLAYER_ANIMATION.IDLERIGTH;
+            if (walkChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.PLAYER_WALK);
+                walkChronometer.Run();
+            }
         }
         else if(moveY > 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_TOP);
             m_lastPosition = PLAYER_ANIMATION.IDLETOP;
+            if (walkChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.PLAYER_WALK);
+                walkChronometer.Run();
+            }
         }
         else if(moveY < 0){
             ChangeAnimationState(PLAYER_ANIMATION.MOVE_BOTTOM);
             m_lastPosition = PLAYER_ANIMATION.IDLEBOTTOM;
+            if (walkChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.PLAYER_WALK);
+                walkChronometer.Run();
+            }
         }
         else{
             ChangeAnimationState(m_lastPosition);
