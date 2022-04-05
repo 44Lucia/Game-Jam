@@ -13,15 +13,27 @@ public class Lantern : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D p_collider) {
         if(p_collider.tag == "Enemy"){
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (p_collider.transform.position - transform.position).normalized, 1000, m_enemyDetection);
-            if(hit.collider == null) { return;}
-            if(hit.collider.gameObject.tag == "Enemy"){
-                Debug.Log("Enemy detected");
-            }
-            else{
-                Debug.Log("Enemy behind obstacle");
-            }
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, (p_collider.transform.position - transform.position).normalized, 1000, m_enemyDetection);
 
+            foreach(RaycastHit2D hit in hits){
+                bool hola = hit.collider.isTrigger == false;
+                if(hit.collider.gameObject.tag == "Finish" && hit.collider.isTrigger == false){
+                    Debug.Log("Enemy HIDING");
+                    p_collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    return ;
+                }
+                if(hit.collider.gameObject.tag == "Enemy"){
+                    Debug.Log("Enemy VISIBLE");
+                    p_collider.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                    return ;
+                }
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D p_collider)
+    {
+        if(p_collider.tag == "Enemy"){
+            p_collider.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 

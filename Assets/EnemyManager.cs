@@ -22,6 +22,7 @@ public class EnemyManager : MonoBehaviour
         m_enemiesScript = new Enemy[m_enemies.Length];
         for(int i = 0; i < m_enemies.Length; i++){
             m_enemiesScript[i] = m_enemies[i].GetComponent<Enemy>();
+            m_enemies[i].GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
