@@ -32,6 +32,7 @@ public class Obstacle : MonoBehaviour
     private void Start()
     {
         inspectChronometer.Duration = SoundManager.Instance.GetAudioClipDuration(AudioClipName.PLAYER_WALK);
+        m_popUpText.gameObject.SetActive(false);
     }
 
     private void Update() {
