@@ -17,10 +17,12 @@ public class Obstacle : MonoBehaviour
 
     public void SortObject(){
         if(PlayerManager.Instance.Position.y < transform.position.y){
-            m_renderer.sortingOrder = 0;
+            //m_renderer.sortingOrder = 0;
+            m_renderer.sortingLayerName = "UnderPlayer";
         }
         else{
-            m_renderer.sortingOrder = 2;
+            //m_renderer.sortingOrder = 2;
+            m_renderer.sortingLayerName = "OverPlayer";
         }
     }
 

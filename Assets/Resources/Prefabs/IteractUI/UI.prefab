@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 7404767164062256695}
   m_Layer: 5
   m_Name: prueba
-  m_TagString: Untagged
+  m_TagString: PRUEBA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,6 +332,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillAmount: 0
   timeThreshold: 0
+  input: {fileID: 7404767164062256695}
+  image: {fileID: 7404767164272716423}
+  killBar: {fileID: 0}
 --- !u!1 &7404767164272716423
 GameObject:
   m_ObjectHideFlags: 0
