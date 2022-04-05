@@ -34,7 +34,11 @@ public class EnemyManager : MonoBehaviour
                 availableHidingSpots.Add(m_obstaclesScript[i]);
             }
         }
+
         int index = (int)Random.Range(0,availableHidingSpots.Count - 1);
+        while(availableHidingSpots[index].ID == p_enemy.LastObstacleID){
+            index = (int)Random.Range(0,availableHidingSpots.Count);
+        }
         Debug.Log(index);
         availableHidingSpots[index].HideEnemy(p_enemy);
     }

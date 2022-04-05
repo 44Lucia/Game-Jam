@@ -5,26 +5,35 @@ using UnityEngine;
 public class SliderTarget : MonoBehaviour
 {
 
+    bool m_check = false;
     [SerializeField] GameObject bar;
     private bool youWin = false;
     void Update()
     {
-        if (!youWin && Input.GetKey("l"))
-        {
-            Debug.Log("pierdes");
+        if(m_check){
+            if (!youWin)
+            {
+                Debug.Log("pierdes");
+                bar.SetActive(false);
+                GameManager.Instance.HandleEvent(false);
+            }
+            else{
+                //ganas
+            
             bar.SetActive(false);
-            GameManager.Instance.HandleEvent(false);
+            GameManager.Instance.HandleEvent(true);
+            }
+            m_check = false;
         }
+        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Finish" && Input.GetKey("l"))
         {
-            //ganas
             youWin = true;
-            bar.SetActive(false);
-            GameManager.Instance.HandleEvent(true);
+            m_check = true;
         }
     }
 }

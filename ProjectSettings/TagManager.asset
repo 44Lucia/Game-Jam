@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - BarrierInstaKill
   - PRUEBA
+  - InteractMessage
   layers:
   - Default
   - TransparentFX
