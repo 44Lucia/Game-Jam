@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject child4;
 
     private float counterChild = 1;
+    bool m_canStartInteracting = true;
 
     public static GameManager Instance { get { return m_instance;}}
     private void Awake() {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void HandleEvent(bool p_hasWon){
+        m_canStartInteracting = true;
         if(!p_hasWon){
             Enemy enemy = m_currentObstacle.FreeHidingSpot();
             EnemyManager.Instance.HideEnemy(enemy);
@@ -58,4 +60,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public bool CanStartInteracting {
+        get { return m_canStartInteracting;}
+        set { m_canStartInteracting = value;}
+    }
+
 }

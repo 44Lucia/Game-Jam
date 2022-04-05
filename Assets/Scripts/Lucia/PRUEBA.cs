@@ -11,7 +11,12 @@ public class PRUEBA : MonoBehaviour
     [SerializeField] PRUEBA input;
     [SerializeField] GameObject image;
     [SerializeField] GameObject killBar;
+    InstaKillProof m_killBarScript;
     bool m_isActive = false;
+
+    private void Start() {
+        m_killBarScript = killBar.GetComponent<InstaKillProof>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +24,10 @@ public class PRUEBA : MonoBehaviour
 
         if(m_isActive){
             fillAmounts(0.02f);
+        }
+        else{
+            m_isActive = false;
+            GameManager.Instance.GetCurrentObstacle().FinishEvent();
         }
 
         if (valueFillAmount() >= 1)
@@ -30,15 +39,20 @@ public class PRUEBA : MonoBehaviour
                 m_isActive = false;
                 if(GameManager.Instance.GetCurrentObstacle().IsEnemyHiding){
                     killBar.SetActive(true);
+                    m_killBarScript.InitializeEvent(PlayerManager.Instance.Position);
                     Debug.Log("NINO ENCONTRADO");
                     GameManager.Instance.GetCurrentObstacle().FinishEvent();
+                }
+                else{
+                    GameManager.Instance.GetCurrentObstacle().FinishEvent();
+                    GameManager.Instance.CanStartInteracting = true;
                 }
                 counter--;
                 fillAmount = 0;
             }
         }
 
-        timeThreshold += Time.deltaTime;
+        /*timeThreshold += Time.deltaTime;
 
         if (timeThreshold > .05)
         {
@@ -49,7 +63,7 @@ public class PRUEBA : MonoBehaviour
         if (fillAmount < 0)
         {
             fillAmount = 0;
-        }
+        }*/
 
         GetComponent<Image>().fillAmount = fillAmount;
     }

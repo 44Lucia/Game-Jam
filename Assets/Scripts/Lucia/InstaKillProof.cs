@@ -8,6 +8,7 @@ public class InstaKillProof : MonoBehaviour
     [SerializeField] GameObject bar;
     [SerializeField] GameObject target;
     [SerializeField] GameObject slider;
+    [SerializeField] float m_size = 100.0f;
 
     public bool facingRigth;
     int maxLaps = 1;
@@ -18,7 +19,7 @@ public class InstaKillProof : MonoBehaviour
     void Start()
     {
         facingRigth = true;
-        InitializeEvent();
+        //InitializeEvent();
     }
 
     // Update is called once per frame
@@ -40,7 +41,7 @@ public class InstaKillProof : MonoBehaviour
         }
         if (collision.gameObject.tag == "BarrierInstaKill" && facingRigth)
         {
-            bar.SetActive(false);
+            this.gameObject.SetActive(false);
             GameManager.Instance.HandleEvent(false);
             //pierdes
         }
@@ -51,11 +52,13 @@ public class InstaKillProof : MonoBehaviour
         facingRigth = true;
     }
 
-    private void InitializeEvent() 
+    public void InitializeEvent(Vector3 p_position) 
     {
-        Vector3 position = new Vector3(Random.Range(63.2f, 152), -115.7f, 0);
-        target.transform.position = position;
-        slider.transform.position = new Vector3(63.2f, -115.58f, 0);
+        float initialPosition = m_size * Random.Range(-0.5f, 0.5f);
+        transform.position = p_position;
+        target.transform.position = new Vector3(transform.position.x + initialPosition,transform.position.y, transform.position.z);
+        //slider.transform.position = p_position;
+        
         lap = 0;
         m_direction = 1;
     }

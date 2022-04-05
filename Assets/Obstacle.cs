@@ -74,8 +74,9 @@ public class Obstacle : MonoBehaviour
             FinishEvent();
         }
         if(m_hasPressedK){ return ;}
-        if (collision.gameObject.tag == "Player" && Input.GetKey("k"))
+        if (collision.gameObject.tag == "Player" && Input.GetKey("k") && GameManager.Instance.CanStartInteracting)
         {
+            GameManager.Instance.CanStartInteracting = false;
             isEventActive = true;
             GameManager.Instance.SetCurrentObstacle(gameObject.GetComponent<Obstacle>());
             m_prueba.Initialize();

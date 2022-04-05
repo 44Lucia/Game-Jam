@@ -10,6 +10,11 @@ public class SliderTarget : MonoBehaviour
     private bool youWin = false;
     void Update()
     {
+        if(Input.GetKey("l") && !m_check){
+            youWin = false;
+            m_check = true;
+        }
+
         if(m_check){
             if (!youWin)
             {
@@ -30,7 +35,7 @@ public class SliderTarget : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Finish" && Input.GetKey("l"))
+        if (collision.gameObject.tag == "Finish" && Input.GetKey("l") && !m_check)
         {
             youWin = true;
             m_check = true;
