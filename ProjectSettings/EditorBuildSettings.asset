@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: bed0f8712c2dae24c8f698c156b14ed7
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 73e4a4128b366f74ea1f0da980ec9894
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 8753e48af51462f49b531458a72cd362
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 957e28afa63f0784b989d682785a771f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/matiasTesting.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

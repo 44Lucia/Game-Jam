@@ -28,4 +28,9 @@ public class MenuLoos : MonoBehaviour
     {
         SceneManager.LoadScene("Game");
     }
+
+    public void toTuto() 
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
 }
