@@ -5,6 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     static GameManager m_instance;
+
+    [SerializeField] GameObject child1;
+    [SerializeField] GameObject child2;
+    [SerializeField] GameObject child3;
+    [SerializeField] GameObject child4;
+
+    private float counterChild = 1;
+
     public static GameManager Instance { get { return m_instance;}}
     private void Awake() {
         if(m_instance == null){ m_instance = this; }
@@ -28,7 +36,26 @@ public class GameManager : MonoBehaviour
         else{
             Enemy enemy = m_currentObstacle.FreeHidingSpot();
             EnemyManager.Instance.KillEnemy(enemy);
+            if (counterChild == 1)
+            {
+                child1.SetActive(true);
+                counterChild++;
+            }
+            else if (counterChild == 2)
+            {
+                child2.SetActive(true);
+                counterChild++;
+            }
+            else if (counterChild == 3)
+            {
+                child3.SetActive(true);
+                counterChild++;
+            }
+            else if (counterChild == 4)
+            {
+                child4.SetActive(true);
+                counterChild++;
+            }
         }
     }
-
 }
