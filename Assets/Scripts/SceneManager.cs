@@ -39,7 +39,6 @@ namespace Game{
 
         void Initialize(){
         m_numberOfTotalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
-        Debug.Log(m_numberOfTotalScenes);
     }
 
     public void SetCurrentScene(Scene p_scene){

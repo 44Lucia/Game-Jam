@@ -17,12 +17,10 @@ public class Lantern : MonoBehaviour
 
             foreach(RaycastHit2D hit in hits){
                 if(hit.collider.gameObject.tag == "Finish"){
-                    Debug.Log("Enemy HIDING");
                     p_collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     return ;
                 }
                 if(hit.collider.gameObject.tag == "Enemy"){
-                    Debug.Log("Enemy VISIBLE");
                     p_collider.gameObject.GetComponent<SpriteRenderer>().enabled = true;
                     return ;
                 }

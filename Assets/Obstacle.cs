@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Obstacle : MonoBehaviour
 {   
     static int IDcount = 0;
-    PRUEBA m_prueba;
+    FIllCircle m_prueba;
     [SerializeField] Transform m_hidingPosition;
     SpriteRenderer m_renderer;
     bool m_isEnemyHiding = false;
@@ -17,18 +17,48 @@ public class Obstacle : MonoBehaviour
     Timer inspectChronometer;
     bool m_isInteractive = false;
     Text m_popUpText;
+    bool m_isPlayerInside = false;
+    InstaKillProof m_instakillScript;
 
     private void Awake() {
         m_renderer = GetComponent<SpriteRenderer>();
-        m_prueba = GameObject.FindGameObjectWithTag("PRUEBA").GetComponent<PRUEBA>();
+        m_prueba = GameObject.FindGameObjectWithTag("PRUEBA").GetComponent<FIllCircle>();
         inspectChronometer = gameObject.AddComponent<Timer>();
         m_ID = IDcount++;
         m_popUpText = GameObject.FindWithTag("InteractMessage").GetComponent<Text>();
+        m_instakillScript = GameObject.FindGameObjectWithTag("Respawn").GetComponent<InstaKillProof>();
     }
 
     private void Start()
     {
         inspectChronometer.Duration = SoundManager.Instance.GetAudioClipDuration(AudioClipName.PLAYER_WALK);
+    }
+
+    private void Update() {
+        if(!m_isPlayerInside) { return ;}
+
+        if (Input.GetKeyUp("k") && !m_instakillScript.IsActive)
+        {
+            Debug.Log("K DEPRESSED");
+            GameManager.Instance.CanStartInteracting = true;
+            FinishEvent();
+            m_hasPressedK = false;
+        }
+        else if (Input.GetKeyDown("k") && GameManager.Instance.CanStartInteracting)
+        {
+            m_hasPressedK = true;
+            Debug.Log("K PRESSED");
+            GameManager.Instance.CanStartInteracting = false;
+            isEventActive = true;
+            GameManager.Instance.SetCurrentObstacle(gameObject.GetComponent<Obstacle>());
+            m_prueba.StartFilling();
+            m_hasPressedK = true;
+            if (inspectChronometer.IsFinished)
+            {
+                SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
+                inspectChronometer.Run();
+            }
+        }
     }
 
     public void SortObject(){
@@ -68,43 +98,21 @@ public class Obstacle : MonoBehaviour
 
     public int ID { get { return m_ID;}}
 
-    private void OnTriggerStay2D(Collider2D collision) {
-        if (collision.gameObject.tag == "Player" && Input.GetKeyUp("k"))
-        {
-            FinishEvent();
-        }
-        if(m_hasPressedK){ return ;}
-        if (collision.gameObject.tag == "Player" && Input.GetKey("k") && GameManager.Instance.CanStartInteracting)
-        {
-            GameManager.Instance.CanStartInteracting = false;
-            isEventActive = true;
-            GameManager.Instance.SetCurrentObstacle(gameObject.GetComponent<Obstacle>());
-            m_prueba.Initialize();
-            m_hasPressedK = true;
-            if (inspectChronometer.IsFinished)
-            {
-                SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
-                inspectChronometer.Run();
-            }
-        }
-    }
-
 public void FinishEvent(){
-    m_hasPressedK = false;
-        m_prueba.SetInactive();
-        if (inspectChronometer.IsFinished)
-        {
-            SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
-            inspectChronometer.Run();
-        }
+    m_prueba.StopFilling();
+    if (inspectChronometer.IsFinished)
+    {
+    SoundManager.Instance.PlayOnce(AudioClipName.INSPECTION);
+    inspectChronometer.Run();
+    }
 }
 
     private void OnTriggerEnter2D(Collider2D p_collider) {
         if(p_collider.tag == "Player"){
+            m_isPlayerInside = true;
             m_isInteractive = true;
             m_popUpText.rectTransform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 40,transform.position.z));
             m_popUpText.gameObject.SetActive(true);
-            Debug.Log("PLAYER INSIDE");
         }
     }
 
@@ -112,8 +120,10 @@ public void FinishEvent(){
         if(p_collider.tag == "Player"){
             m_isInteractive = false;
             m_popUpText.gameObject.SetActive(false);
-            Debug.Log("PLAYER OUTSIDE");
+            m_isPlayerInside = false;
         }
     }
+
+    public bool HasPressedK { set { m_hasPressedK = value;}}
 
 }

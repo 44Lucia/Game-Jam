@@ -9,6 +9,7 @@ public class InstaKillProof : MonoBehaviour
     [SerializeField] GameObject target;
     [SerializeField] GameObject slider;
     [SerializeField] float m_size = 100.0f;
+    bool m_isActive = false;
 
     public bool facingRigth;
     int maxLaps = 1;
@@ -20,6 +21,7 @@ public class InstaKillProof : MonoBehaviour
     {
         facingRigth = true;
         //InitializeEvent();
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -61,5 +63,10 @@ public class InstaKillProof : MonoBehaviour
         
         lap = 0;
         m_direction = 1;
+        m_isActive = true;
     }
+    public bool IsActive { get { return m_isActive;}
+        set { m_isActive = value;}
+    }
+
 }

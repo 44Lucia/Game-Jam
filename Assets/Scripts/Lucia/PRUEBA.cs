@@ -27,12 +27,15 @@ public class PRUEBA : MonoBehaviour
         }
         else{
             m_isActive = false;
-            GameManager.Instance.GetCurrentObstacle().FinishEvent();
+            if(GameManager.Instance.GetCurrentObstacle() != null){
+                GameManager.Instance.GetCurrentObstacle().FinishEvent();
+            }
+            GameManager.Instance.CanStartInteracting = true;
+            fillAmount = 0;
         }
 
         if (valueFillAmount() >= 1)
         {
-            Debug.Log("Patata");
             //image.SetActive(false);
             if (counter == 1)
             {
@@ -40,7 +43,6 @@ public class PRUEBA : MonoBehaviour
                 if(GameManager.Instance.GetCurrentObstacle().IsEnemyHiding){
                     killBar.SetActive(true);
                     m_killBarScript.InitializeEvent(PlayerManager.Instance.Position);
-                    Debug.Log("NINO ENCONTRADO");
                     GameManager.Instance.GetCurrentObstacle().FinishEvent();
                 }
                 else{
@@ -49,6 +51,7 @@ public class PRUEBA : MonoBehaviour
                 }
                 counter--;
                 fillAmount = 0;
+                GameManager.Instance.GetCurrentObstacle().HasPressedK = false;
             }
         }
 
@@ -75,13 +78,14 @@ public class PRUEBA : MonoBehaviour
 
     public void Initialize(){
         GetComponent<Image>().fillAmount = 0;
-        
-        fillAmounts(+.02f);
         m_isActive = true;
         counter = 1;
     }
     public float valueFillAmount() { return fillAmount; }
     public void SetInactive(){
         m_isActive = false;
+        GameManager.Instance.CanStartInteracting = true;
+        counter--;
+        fillAmount = 0;
     }
 }
