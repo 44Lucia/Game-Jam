@@ -16,8 +16,7 @@ public class Lantern : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, (p_collider.transform.position - transform.position).normalized, 1000, m_enemyDetection);
 
             foreach(RaycastHit2D hit in hits){
-                bool hola = hit.collider.isTrigger == false;
-                if(hit.collider.gameObject.tag == "Finish" && hit.collider.isTrigger == false){
+                if(hit.collider.gameObject.tag == "Finish"){
                     Debug.Log("Enemy HIDING");
                     p_collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     return ;
