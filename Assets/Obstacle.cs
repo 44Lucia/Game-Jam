@@ -98,6 +98,15 @@ public void FinishEvent(){
         }
 }
 
+    private void OnTriggerEnter2D(Collider2D p_collider) {
+        if(p_collider.tag == "Player"){
+            m_isInteractive = true;
+            m_popUpText.rectTransform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 40,transform.position.z));
+            m_popUpText.gameObject.SetActive(true);
+            Debug.Log("PLAYER INSIDE");
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D p_collider) {
         if(p_collider.tag == "Player"){
             m_isInteractive = false;
