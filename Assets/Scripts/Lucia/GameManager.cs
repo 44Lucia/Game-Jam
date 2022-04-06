@@ -6,11 +6,6 @@ public class GameManager : MonoBehaviour
 {
     static GameManager m_instance;
 
-    [SerializeField] GameObject child1;
-    [SerializeField] GameObject child2;
-    [SerializeField] GameObject child3;
-    [SerializeField] GameObject child4;
-
     [SerializeField] GameObject pause;
 
     private float counterChild = 1;
@@ -26,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(counterChild >=4){
+            Debug.Log("YOU WON");
+        }
         if (Input.GetKeyDown("p"))
         {
             pauseTimer = true;
@@ -50,26 +48,7 @@ public class GameManager : MonoBehaviour
         else{
             Enemy enemy = m_currentObstacle.SetUpDeadEnemy();
             EnemyManager.Instance.KillEnemy(enemy);
-            if (counterChild == 1)
-            {
-                child1.SetActive(true);
-                counterChild++;
-            }
-            else if (counterChild == 2)
-            {
-                child2.SetActive(true);
-                counterChild++;
-            }
-            else if (counterChild == 3)
-            {
-                child3.SetActive(true);
-                counterChild++;
-            }
-            else if (counterChild == 4)
-            {
-                child4.SetActive(true);
-                counterChild++;
-            }
+            counterChild++;
         }
     }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] GameObject childHud;
     [SerializeField] Obstacle m_obstacle;
     int m_lastObstacleID;
 
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
         ChangeAnimationState(ENEMY_ANIMATION.DEATH);
         m_isAlive = false;
         m_renderer.enabled = true;
+        childHud.SetActive(true);
     }
 
     public bool IsAlive { get { return m_isAlive;}}
