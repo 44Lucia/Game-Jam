@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     static GameManager m_instance;
-
+    bool m_isPaused = false;
     [SerializeField] GameObject pause;
 
     private float counterChild = 0;
@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     }
     Obstacle m_currentObstacle;
 
+    private void Start() {
+        Time.timeScale = 1;
+    }
+
     private void Update()
     {
         if(counterChild >=4){
@@ -30,6 +34,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             pauseTimer = true;
             pause.SetActive(true);
+            m_isPaused = true;
+        }
+        if(pause.activeSelf == false){
+            m_isPaused = false;
         }
     }
 
@@ -72,5 +80,9 @@ public class GameManager : MonoBehaviour
     }
 
     public bool timerPause() { return pauseTimer; }
+
+    public bool IsPaused{ get{ return m_isPaused;}
+        set { m_isPaused = value;}
+    }
 
 }

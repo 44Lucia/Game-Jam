@@ -88,6 +88,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Instance.IsPaused) { return ;}
 
         if(m_isAnimationEventActive && m_animationEventTimer.IsFinished){
             m_canPlayerMove = true;
