@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     {
         if(counterChild >=4){
             Debug.Log("YOU WON");
-            Game.SceneManager.Instance.LoadScene(3);
+            Game.SceneManager.Instance.LoadScene(4);
         }
         if (Input.GetKeyDown("p"))
         {
