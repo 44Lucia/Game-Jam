@@ -16,7 +16,7 @@ public class Obstacle : MonoBehaviour
     int m_ID = 0;
     Timer inspectChronometer;
     bool m_isInteractive = false;
-    Text m_popUpText;
+    Image m_popUpText;
     bool m_isPlayerInside = false;
     InstaKillProof m_instakillScript;
 
@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour
         m_prueba = GameObject.FindGameObjectWithTag("PRUEBA").GetComponent<FIllCircle>();
         inspectChronometer = gameObject.AddComponent<Timer>();
         m_ID = IDcount++;
-        m_popUpText = GameObject.FindWithTag("InteractMessage").GetComponent<Text>();
+        m_popUpText = GameObject.FindWithTag("InteractMessage").GetComponent<Image>();
         m_instakillScript = GameObject.FindGameObjectWithTag("Respawn").GetComponent<InstaKillProof>();
     }
 
