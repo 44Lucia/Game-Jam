@@ -47,6 +47,7 @@ public class Obstacle : MonoBehaviour
         }
         else if (Input.GetKeyDown("k") && GameManager.Instance.CanStartInteracting)
         {
+            if(!m_enemyHiding.IsAlive){ return;}
             m_hasPressedK = true;
             Debug.Log("K PRESSED");
             GameManager.Instance.CanStartInteracting = false;
