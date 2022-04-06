@@ -60,7 +60,7 @@ public class InstaKillProof : MonoBehaviour
     public void InitializeEvent(Vector3 p_position) 
     {
         float initialPosition = m_size * Random.Range(-0.5f, 0.5f);
-        transform.position = p_position;
+        transform.position = new Vector3(p_position.x, p_position.y -60, p_position.z);
         target.transform.position = new Vector3(transform.position.x + initialPosition,transform.position.y, transform.position.z);
         slider.transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z);
         
