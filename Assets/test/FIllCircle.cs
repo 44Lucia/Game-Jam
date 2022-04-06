@@ -24,7 +24,7 @@ public class FIllCircle : MonoBehaviour
 
     private void Update() {
         if(m_isActive){
-            m_circle.fillAmount += m_fillaAmountSpeed;
+            m_circle.fillAmount += m_fillaAmountSpeed * Time.deltaTime;
         }
 
         if(m_circle.fillAmount >= 1){
@@ -38,13 +38,14 @@ public class FIllCircle : MonoBehaviour
                 GameManager.Instance.CanStartInteracting = true;
             }
             GameManager.Instance.GetCurrentObstacle().FinishEvent();
-
+        PlayerManager.Instance.EndEvent();
         }
 
     }
 
     public void StartFilling(){
         m_isActive = true;
+        PlayerManager.Instance.Search(GameManager.Instance.GetCurrentObstacle().transform.position);
     }
 
     public void StopFilling(){

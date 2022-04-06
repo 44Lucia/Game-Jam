@@ -159,10 +159,18 @@ public class PlayerManager : MonoBehaviour
     public void Search(Vector3 p_position){
         m_canPlayerMove = false;
         if(p_position.x > transform.position.x){
-            ChangeAnimationState(PLAYER_ANIMATION.OBSERVATION_LEFT);
-        }else{
             ChangeAnimationState(PLAYER_ANIMATION.OBSERVATION_RIGHT);
+            m_lastPosition = PLAYER_ANIMATION.IDLERIGTH;
+        }else{
+            ChangeAnimationState(PLAYER_ANIMATION.OBSERVATION_LEFT);
+            m_lastPosition = PLAYER_ANIMATION.IDLELEFT;
         }
+        m_animationEventTimer.Run();
+        m_isAnimationEventActive = true;
+    }
+
+    public void EndEvent(){
+        m_animationEventTimer.Stop();
     }
 
     public void Execute(Vector3 p_position){
