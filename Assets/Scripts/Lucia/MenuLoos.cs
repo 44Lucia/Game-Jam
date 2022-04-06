@@ -33,4 +33,9 @@ public class MenuLoos : MonoBehaviour
     {
         SceneManager.LoadScene("Tutorial");
     }
+
+    public void toExit() 
+    {
+        Application.Quit();
+    }
 }
