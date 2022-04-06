@@ -50,4 +50,14 @@ public class EnemyManager : MonoBehaviour
         //p_enemy.gameObject.SetActive(false);
     }
 
+    public List<Enemy> ReturnAliveEnemies(){
+        List<Enemy> aliveEnemies = new List<Enemy>();
+        for(int i = 0; i < m_enemiesScript.Length; i++){
+            if(m_enemiesScript[i].IsAlive){
+                aliveEnemies.Add(m_enemiesScript[i]);
+            }
+        }
+        return aliveEnemies;
+    }
+
 }

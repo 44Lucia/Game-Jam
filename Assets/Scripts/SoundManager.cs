@@ -127,5 +127,12 @@ public class SoundManager : MonoBehaviour
     public float EffectVolume{ get { return m_generalVolumeEffects;}}
     public float BackgroundVolume{ get { return m_generalVolumeBackground;}}
 
+    public void SetBeatVolume(float p_value){
+        float value = p_value;
+        if(p_value < 0) { value =0; }
+        else if(p_value > 1) { value = 1;}
+        m_heartSound = p_value;
+    }
+
 }
 
