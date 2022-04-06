@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void Die(Vector3 p_position){
-        if(p_position.x < transform.position.x){
+        if(p_position.x > transform.position.x){
             FlipX();
         }
         ChangeAnimationState(ENEMY_ANIMATION.DEATH);

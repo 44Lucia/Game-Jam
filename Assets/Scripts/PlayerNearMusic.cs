@@ -25,7 +25,6 @@ public class PlayerNearMusic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
         List<Enemy> enemies = EnemyManager.Instance.ReturnAliveEnemies();
 
