@@ -58,7 +58,7 @@ public class SoundManager : MonoBehaviour
     {
 
         m_background.loop = true;
-        m_background.volume = 0.5f;
+        m_background.volume = 1f;
         m_effects.loop = false;
         m_effects.volume = 1;
         
@@ -133,15 +133,14 @@ public class SoundManager : MonoBehaviour
         if(p_value < 0) { value =0; }
         else if(p_value > 1) { value = 1;}
         m_heartBeat.volume = m_generalVolumeEffects * value;
-        m_volumeBackground[(int)AudioClipName.HEARTSOUND] = value;
+        m_volumeEffects[(int)AudioClipName.HEARTSOUND] = value;
     }
 
     public void PlayBeat()
     {
-        m_heartBeat.volume = m_generalVolumeEffects * m_volumeBackground[(int)AudioClipName.HEARTSOUND];
+        m_heartBeat.volume = m_generalVolumeEffects * m_volumeEffects[(int)AudioClipName.HEARTSOUND];
         m_heartBeat.clip = m_audioClips[(int)AudioClipName.HEARTSOUND];
         m_heartBeat.Play();
-        
     }
 
 }

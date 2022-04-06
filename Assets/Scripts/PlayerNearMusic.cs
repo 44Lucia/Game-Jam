@@ -6,7 +6,7 @@ public class PlayerNearMusic : MonoBehaviour
 {
     Timer m_beatTimer;
     float m_duration = 8;
-    [SerializeField] float m_minDetectionDistance = 100;
+    [SerializeField] float m_minDetectionDistance = 10000;
     [SerializeField] float m_minVolume = 0.2f;
     [SerializeField] float m_maxVolume = 0.8f;
 
@@ -20,16 +20,12 @@ public class PlayerNearMusic : MonoBehaviour
         m_beatTimer.Duration = m_duration;
         m_beatTimer.Run();
         SoundManager.Instance.SetBeatVolume(1f);
-        SoundManager.Instance.PlayOnce(AudioClipName.HEARTSOUND);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_beatTimer.IsFinished){
-            SoundManager.Instance.PlayOnce(AudioClipName.HEARTSOUND);
-            m_beatTimer.Run();
-        }
+        
 
         List<Enemy> enemies = EnemyManager.Instance.ReturnAliveEnemies();
 
