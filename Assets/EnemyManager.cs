@@ -45,7 +45,9 @@ public class EnemyManager : MonoBehaviour
 
     public void KillEnemy(Enemy p_enemy){
         Debug.Log("Enemy Killed");
-        p_enemy.gameObject.SetActive(false);
+        PlayerManager.Instance.Execute(p_enemy.gameObject.transform.position);
+        p_enemy.Die(PlayerManager.Instance.gameObject.transform.position);
+        //p_enemy.gameObject.SetActive(false);
     }
 
 }

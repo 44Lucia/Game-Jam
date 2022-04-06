@@ -12,7 +12,7 @@ public class Lantern : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D p_collider) {
-        if(p_collider.tag == "Enemy"){
+        if(p_collider.tag == "Enemy" && p_collider.GetComponent<Enemy>().IsAlive){
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, (p_collider.transform.position - transform.position).normalized, 1000, m_enemyDetection);
 
             foreach(RaycastHit2D hit in hits){
@@ -29,7 +29,7 @@ public class Lantern : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D p_collider)
     {
-        if(p_collider.tag == "Enemy"){
+        if(p_collider.tag == "Enemy" && p_collider.GetComponent<Enemy>().IsAlive){
             p_collider.GetComponent<SpriteRenderer>().enabled = false;
         }
     }

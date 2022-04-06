@@ -95,6 +95,10 @@ public class Obstacle : MonoBehaviour
         return enemy;
     }
 
+    public Enemy SetUpDeadEnemy(){
+        return m_enemyHiding;
+    }
+
     public Vector3 HidingPosition { get { return m_hidingPosition.position;}}
 
     public int ID { get { return m_ID;}}

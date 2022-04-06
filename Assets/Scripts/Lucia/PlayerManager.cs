@@ -21,6 +21,10 @@ public class PlayerManager : MonoBehaviour
     string m_idleLeftAnimationName = "idleLeft";
     string m_idleRigthAnimationName = "idleRight";
     string m_idleTopAnimationName = "idleTop";
+    string m_executeRightAnimationName = "execute";
+    string m_executeLeftAnimationName = "execute_left";
+    string m_observationLeftAnimationName = "observationLeft";
+    string m_observationRightAnimationName = "observationRigth";
     int[] m_animationHash = new int[(int)PLAYER_ANIMATION.LAST_NO_USE];
 
     PLAYER_ANIMATION m_lastPosition = 0;
@@ -28,9 +32,11 @@ public class PlayerManager : MonoBehaviour
     Animator m_animator;
     PLAYER_ANIMATION m_animationState;
     int m_currentAnimationHash = 0;
-    bool m_isBeingScripted = false;
+    bool m_canPlayerMove = true;
 
     Timer walkChronometer;
+    Timer m_animationEventTimer;
+    bool m_isAnimationEventActive = false;
 
     public void ChangeAnimationState(PLAYER_ANIMATION p_animationState)
     {
@@ -56,10 +62,12 @@ public class PlayerManager : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         walkChronometer = gameObject.AddComponent<Timer>();
         m_animator = GetComponent<Animator>();
+        m_animationEventTimer = gameObject.AddComponent<Timer>();
 
     }
     void Start()
     {
+        m_animationEventTimer.Duration = 1.0f;
         rb2D.rotation = 0;
         m_animationHash[(int)PLAYER_ANIMATION.IDLEBOTTOM]                  = Animator.StringToHash(m_idleBottomAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.IDLERIGTH]                   = Animator.StringToHash(m_idleRigthAnimationName);
@@ -69,6 +77,10 @@ public class PlayerManager : MonoBehaviour
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_RIGHT]                = Animator.StringToHash(m_moveRightAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_TOP]                 = Animator.StringToHash(m_moveTopAnimationName);
         m_animationHash[(int)PLAYER_ANIMATION.MOVE_BOTTOM]                 = Animator.StringToHash(m_moveBottomAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.OBSERVATION_RIGHT]                 = Animator.StringToHash(m_observationRightAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.EXECUTE_LEFT]                 = Animator.StringToHash(m_executeLeftAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.EXECUTE_RIGHT]                 = Animator.StringToHash(m_executeRightAnimationName);
+        m_animationHash[(int)PLAYER_ANIMATION.OBSERVATION_LEFT]                 = Animator.StringToHash(m_observationLeftAnimationName);
        
         walkChronometer.Duration = SoundManager.Instance.GetAudioClipDuration(AudioClipName.PLAYER_WALK);
     }
@@ -76,7 +88,15 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
+
+        if(m_isAnimationEventActive && m_animationEventTimer.IsFinished){
+            m_canPlayerMove = true;
+            m_isAnimationEventActive = false;
+            ReturnToIdle();
+        }
+
+        if(m_canPlayerMove){
+            float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
         if(moveX < 0){
@@ -122,6 +142,7 @@ public class PlayerManager : MonoBehaviour
         Vector2 m_direction = new Vector2(moveX, moveY);
 
         rb2D.velocity = m_direction * speed;
+        }
 
     }
 
@@ -132,6 +153,33 @@ public class PlayerManager : MonoBehaviour
     public void velocityPlayer(float value) 
     { 
         speed += value; 
+    }
+
+    public void Search(Vector3 p_position){
+        m_canPlayerMove = false;
+        if(p_position.x > transform.position.x){
+            ChangeAnimationState(PLAYER_ANIMATION.OBSERVATION_LEFT);
+        }else{
+            ChangeAnimationState(PLAYER_ANIMATION.OBSERVATION_RIGHT);
+        }
+    }
+
+    public void Execute(Vector3 p_position){
+        m_canPlayerMove = false;
+        if(p_position.x > transform.position.x){
+            ChangeAnimationState(PLAYER_ANIMATION.EXECUTE_RIGHT);
+            m_lastPosition = PLAYER_ANIMATION.IDLERIGTH;
+        }else{
+            ChangeAnimationState(PLAYER_ANIMATION.EXECUTE_LEFT);
+            m_lastPosition = PLAYER_ANIMATION.IDLELEFT;
+        }
+        m_animationEventTimer.Run();
+        m_isAnimationEventActive = true;
+    }
+
+    public void ReturnToIdle(){
+        m_canPlayerMove = true;
+        ChangeAnimationState(m_lastPosition);
     }
 
 }

@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             EnemyManager.Instance.HideEnemy(enemy);
         }
         else{
-            Enemy enemy = m_currentObstacle.FreeHidingSpot();
+            Enemy enemy = m_currentObstacle.SetUpDeadEnemy();
             EnemyManager.Instance.KillEnemy(enemy);
             if (counterChild == 1)
             {
