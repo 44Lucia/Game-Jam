@@ -44,6 +44,7 @@ namespace Game{
     public void SetCurrentScene(Scene p_scene){
         m_currentScene = p_scene;
         SoundManager.Instance.PlayBackground(m_currentScene.BackgroundMusic);
+
     }
 
     public void LoadScene(int p_scene){
@@ -52,6 +53,9 @@ namespace Game{
             return ;
          }
         UnityEngine.SceneManagement.SceneManager.LoadScene((int)p_scene);
+        if(p_scene == 2){
+            SoundManager.Instance.SetBeatVolume(1f);
+        }
     }
 
     public BackGroundClipName GetCurrentBackgroudClipName() { return m_currentScene.GetCurrentBackgroudClipName(); }

@@ -14,11 +14,7 @@ public class PlayerNearMusic : MonoBehaviour
         m_beatTimer = gameObject.AddComponent<Timer>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_beatTimer.Duration = m_duration;
-        m_beatTimer.Run();
+    void StartHeartBeating(){
         SoundManager.Instance.SetBeatVolume(1f);
     }
 
