@@ -55,6 +55,11 @@ namespace Game{
     }
 
     public BackGroundClipName GetCurrentBackgroudClipName() { return m_currentScene.GetCurrentBackgroudClipName(); }
+
+    public void ExitGame(){
+        Application.Quit();
+    }
+
     }
 
 }

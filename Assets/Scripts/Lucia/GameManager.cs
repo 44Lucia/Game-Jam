@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject pause;
 
-    private float counterChild = 1;
+    private float counterChild = 0;
     bool m_canStartInteracting = true;
     bool pauseTimer = false;
 
@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     {
         if(counterChild >=4){
             Debug.Log("YOU WON");
+            Game.SceneManager.Instance.LoadScene(3);
         }
         if (Input.GetKeyDown("p"))
         {
+            Time.timeScale = 0;
             pauseTimer = true;
             pause.SetActive(true);
         }
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         pauseTimer = false;
         pause.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void timerPaused(bool isPaused) 
