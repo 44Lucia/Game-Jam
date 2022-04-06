@@ -7,6 +7,8 @@ public class PlayerNearMusic : MonoBehaviour
     Timer m_beatTimer;
     float m_duration = 8;
     [SerializeField] float m_minDetectionDistance = 100;
+    [SerializeField] float m_minVolume = 0.2f;
+    [SerializeField] float m_maxVolume = 0.8f;
 
     private void Awake() {
         m_beatTimer = gameObject.AddComponent<Timer>();
@@ -26,6 +28,7 @@ public class PlayerNearMusic : MonoBehaviour
     {
         if(m_beatTimer.IsFinished){
             SoundManager.Instance.PlayOnce(AudioClipName.HEARTSOUND);
+            m_beatTimer.Run();
         }
 
         List<Enemy> enemies = EnemyManager.Instance.ReturnAliveEnemies();
@@ -43,10 +46,14 @@ public class PlayerNearMusic : MonoBehaviour
         Vector2 distanceVector = new Vector2((PlayerManager.Instance.transform.position.x - nextEnemy.transform.position.x), (PlayerManager.Instance.transform.position.x - nextEnemy.transform.position.x));
 
         float distance = distanceVector.magnitude;
+        float beatVolume = m_minVolume;
 
-        if(distance <= m_minDetectionDistance){
-            
+        if(distance < m_minDetectionDistance){
+            beatVolume = m_maxVolume - (distance/m_minDetectionDistance) * (m_maxVolume - m_minVolume);
         }
+
+        SoundManager.Instance.SetBeatVolume(beatVolume);
+        Debug.Log(beatVolume);
 
     }
 }

@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
     static SoundManager m_instance;
     [SerializeField] AudioSource m_effects;
     [SerializeField] AudioSource m_background;
+    [SerializeField] AudioSource m_heartBeat;
     AudioClip[] m_audioClips;
     float[] m_volumeEffects;
     float m_generalVolumeEffects = 1;
@@ -48,6 +49,7 @@ public class SoundManager : MonoBehaviour
     {
         m_background.loop = true;
         m_effects.loop = false;
+        m_heartBeat.loop = true;
     }
 
     public static SoundManager Instance { get { return m_instance; } private set { } }
@@ -115,7 +117,6 @@ public class SoundManager : MonoBehaviour
         m_generalVolumeBackground = volumeValue;
         m_background.volume = m_generalVolumeBackground;
     }
-
     public void SetEffectsVolume(float p_value){
         float volumeValue;
         if(p_value < 0){ volumeValue = 0; }
@@ -131,7 +132,16 @@ public class SoundManager : MonoBehaviour
         float value = p_value;
         if(p_value < 0) { value =0; }
         else if(p_value > 1) { value = 1;}
-        m_heartSound = p_value;
+        m_heartBeat.volume = m_generalVolumeEffects * value;
+        m_volumeBackground[(int)AudioClipName.HEARTSOUND] = value;
+    }
+
+    public void PlayBeat()
+    {
+        m_heartBeat.volume = m_generalVolumeEffects * m_volumeBackground[(int)AudioClipName.HEARTSOUND];
+        m_heartBeat.clip = m_audioClips[(int)AudioClipName.HEARTSOUND];
+        m_heartBeat.Play();
+        
     }
 
 }
