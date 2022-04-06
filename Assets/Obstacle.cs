@@ -120,7 +120,7 @@ public void FinishEvent(){
         if(p_collider.tag == "Player"){
             m_isPlayerInside = true;
             m_isInteractive = true;
-            m_popUpText.rectTransform.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 40,transform.position.z));
+            m_popUpText.rectTransform.position = Camera.main.WorldToScreenPoint(new Vector3(PlayerManager.Instance.transform.position.x +20, PlayerManager.Instance.transform.position.y,transform.position.z));
             m_popUpText.gameObject.SetActive(true);
         }
     }
